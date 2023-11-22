@@ -61,3 +61,8 @@ Feel free to open issues, report bugs, or suggest improvements. Contributions ar
 
 License
 This project is licensed under the MIT License.
+
+---
+add_books function
+and
+add_books python script
