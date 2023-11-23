@@ -1,0 +1,621 @@
+import json
+import requests
+
+url = 'http://127.0.0.1:8000/add_books/'
+headers = {'Content-Type': 'application/json'}
+
+# 直接在脚本中定义书籍数据
+books_data = {
+  "books": [
+    {
+      "authors": "John M. Zelle",
+      "title": "Python Programming",
+      "price": "35.87"
+    },
+    {
+      "authors": "Michał Jaworski, Tarek Ziadé",
+      "title": "Expert Python Programming",
+      "price": "58.50"
+    },
+    {
+      "authors": "Michał Jaworski, Tarek Ziadé",
+      "title": "Expert Python Programming",
+      "price": "26.75"
+    },
+    {
+      "authors": "Joseph Joyner",
+      "title": "Python Programming For Beginners",
+      "price": "34.37"
+    },
+    {
+      "authors": "Brady Ellison",
+      "title": "Python for Beginners",
+      "price": "92.94"
+    },
+    {
+      "authors": "Lance Gifford",
+      "title": "Python Programming Techniques",
+      "price": "63.89"
+    },
+    {
+      "authors": "Charlie Masterson",
+      "title": "Python",
+      "price": "18.83"
+    },
+    {
+      "authors": "Frederick Kaefer, Paul Kaefer",
+      "title": "Introduction to Python Programming for Business and Social Science Applications",
+      "price": "97.41"
+    },
+    {
+      "authors": "Wesley J Chun",
+      "title": "Core Python Programming",
+      "price": "57.57"
+    },
+    {
+      "authors": "A. J. WRIGHT",
+      "title": "Python Programming from Beginner to Paid Professional Part 1",
+      "price": "89.66"
+    },
+    {
+      "authors": "Damon Parker",
+      "title": "Learn Python",
+      "price": "90.05"
+    },
+    {
+      "authors": "Fabrizio Romano",
+      "title": "Learn Python Programming",
+      "price": "68.37"
+    },
+    {
+      "authors": "Kent D. Lee",
+      "title": "Python Programming Fundamentals",
+      "price": "89.59"
+    },
+    {
+      "authors": "April Speight",
+      "title": "Bite-Size Python",
+      "price": "27.71"
+    },
+    {
+      "authors": "Pooja Sharma",
+      "title": "Programming in Python",
+      "price": "84.17"
+    },
+    {
+      "authors": "John Paul Mueller",
+      "title": "Beginning Programming with Python For Dummies",
+      "price": "92.47"
+    },
+    {
+      "authors": "Adam Stewart",
+      "title": "Python Programming",
+      "price": "66.36"
+    },
+    {
+      "authors": "Bradley N. Miller, David L. Ranum, Julie Anderson",
+      "title": "Python Programming in Context",
+      "price": "19.62"
+    },
+    {
+      "authors": "Bradley N. Miller, David L. Ranum",
+      "title": "Python Programming in Context",
+      "price": "47.34"
+    },
+    {
+      "authors": "Bob Mather",
+      "title": "Coding for Kids in Python: Python Programming Projects for Kids and Beginners to Get Started Programming Fun Games",
+      "price": "94.04"
+    },
+    {
+      "authors": "James W. Cooper",
+      "title": "Python Programming with Design Patterns",
+      "price": "40.74"
+    },
+    {
+      "authors": "José Unpingco",
+      "title": "Python Programming for Data Analysis",
+      "price": "65.94"
+    },
+    {
+      "authors": "Nathan Metzler",
+      "title": "Python for Beginners",
+      "price": "45.99"
+    },
+    {
+      "authors": "Vaibhav Gondaliya",
+      "title": "Programming With Python",
+      "price": "60.23"
+    },
+    {
+      "authors": "Vijay Kumar Sharma, Vimal Kumar, Swati Sharma, Shashwat Pathak",
+      "title": "Python Programming",
+      "price": "72.72"
+    },
+    {
+      "authors": "Meenu Kohli",
+      "title": "Advance Core Python Programming",
+      "price": "63.86"
+    },
+    {
+      "authors": "Anthony Adams",
+      "title": "Python Programming, Deep Learning",
+      "price": "68.14"
+    },
+    {
+      "authors": "Mahesh Sambhaji Jadhav",
+      "title": "Easy and Quick Python Programming for Kids",
+      "price": "28.67"
+    },
+    {
+      "authors": "Jason Scotts",
+      "title": "Python Programming : How to Code Python Fast In Just 24 Hours With 7 Simple Steps",
+      "price": "24.59"
+    },
+    {
+      "authors": "Ahidjo Ayeva, Kamon Ayeva, Aiman Saed",
+      "title": "Python In - Depth",
+      "price": "64.78"
+    },
+    {
+      "authors": "Howard Hayes",
+      "title": "Python Programming",
+      "price": "58.70"
+    },
+    {
+      "authors": "Nischay kumar Hegde",
+      "title": "Python Programming Fundamentals",
+      "price": "81.88"
+    },
+    {
+      "authors": "Liam Foster",
+      "title": "Python Programming For Beginners",
+      "price": "62.96"
+    },
+    {
+      "authors": "Justin Seitz",
+      "title": "Gray Hat Python",
+      "price": "73.91"
+    },
+    {
+      "authors": "Adam Bash",
+      "title": "Python Programming",
+      "price": "10.75"
+    },
+    {
+      "authors": "Joel Lawhead",
+      "title": "QGIS Python Programming Cookbook",
+      "price": "75.32"
+    },
+    {
+      "authors": "Robert Campbell",
+      "title": "PYTHON PROGRAMMING FOR BEGINNERS",
+      "price": "23.23"
+    },
+    {
+      "authors": "Nathan Clark",
+      "title": "Python",
+      "price": "38.96"
+    },
+    {
+      "authors": "John Russel",
+      "title": "Python Programming",
+      "price": "20.68"
+    },
+    {
+      "authors": "Ryan C. Heitz",
+      "title": "Hello Raspberry Pi!",
+      "price": "16.98"
+    },
+    {
+      "authors": "Jon Krohn, Grant Beyleveld, Aglaé Bassens",
+      "title": "Deep Learning illustriert",
+      "price": "33.44"
+    },
+    {
+      "authors": "Aurélien Géron",
+      "title": "Praxiseinstieg Machine Learning mit Scikit-Learn, Keras und TensorFlow",
+      "price": "51.38"
+    },
+    {
+      "authors": "Jochen Hirschle",
+      "title": "Machine Learning für Zeitreihen",
+      "price": "73.81"
+    },
+    {
+      "authors": "Phillip Kuhlmann",
+      "title": "Künstliche Intelligenz",
+      "price": "39.51"
+    },
+    {
+      "authors": "Matt Harrison",
+      "title": "Machine Learning – Die Referenz",
+      "price": "20.08"
+    },
+    {
+      "authors": "Daniel Basler",
+      "title": "Neuronale Netze mit C# programmieren",
+      "price": "74.19"
+    },
+    {
+      "authors": "Bharath Ramsundar, Peter Eastman, Patrick Walters, Vijay Pande",
+      "title": "Deep Learning für die Biowissenschaften",
+      "price": "94.00"
+    },
+    {
+      "authors": "Mark Treveil, Nicolas Omont, Clément Stenac, Kenji Lefèvre, Du Phan,",
+      "title": "MLOps – Kernkonzepte im Überblick",
+      "price": "68.26"
+    },
+    {
+      "authors": "N/A",
+      "title": "Einführung in Machine Learning mit Python",
+      "price": "26.88"
+    },
+    {
+      "authors": "Ramon Wartala",
+      "title": "Praxiseinstieg Deep Learning",
+      "price": "14.58"
+    },
+    {
+      "authors": "Douwe Osinga",
+      "title": "Deep Learning Kochbuch",
+      "price": "22.15"
+    },
+    {
+      "authors": "Alex J. Gutman, Jordan Goldmeier",
+      "title": "Werde ein Data Head",
+      "price": "59.73"
+    },
+    {
+      "authors": "Tobias Wischemann",
+      "title": "Wie Machine Learning die Diagnose- und Therapieentscheidungen verbessert. Technische, organisatorische und rechtliche Voraussetzungen in der modernen Medizin",
+      "price": "71.17"
+    },
+    {
+      "authors": "Josh Starmer",
+      "title": "StatQuest - der illustrierte Machine Learning Guide",
+      "price": "14.00"
+    },
+    {
+      "authors": "Claude Sammut, Geoffrey I. Webb",
+      "title": "Encyclopedia of Machine Learning",
+      "price": "26.07"
+    },
+    {
+      "authors": "Jude W. Shavlik, Thomas Dietterich, Thomas Glen Dietterich",
+      "title": "Readings in Machine Learning",
+      "price": "80.26"
+    },
+    {
+      "authors": "Chi Nhan Nguyen, Oliver Zeigermann",
+      "title": "Machine Learning – kurz & gut",
+      "price": "23.58"
+    },
+    {
+      "authors": "Aurélien Géron",
+      "title": "Praxiseinstieg Machine Learning mit Scikit-Learn und TensorFlow",
+      "price": "95.13"
+    },
+    {
+      "authors": "Weinke, Manuel",
+      "title": "Machine Learning im Logistikmanagement – Entwicklung eines Gestaltungsansatzes zum Einsatz von ML-Anwendungen in logistischen Entscheidungsprozessen",
+      "price": "17.72"
+    },
+    {
+      "authors": "Alice Zheng, Amanda Casari",
+      "title": "Merkmalskonstruktion für Machine Learning",
+      "price": "41.80"
+    },
+    {
+      "authors": "Aurélien Géron",
+      "title": "Praxiseinstieg Machine Learning mit Scikit-Learn und TensorFlow",
+      "price": "37.65"
+    },
+    {
+      "authors": "Sean Saito, Yang Wenzhuo, Rajalingappaa Shanmugamani",
+      "title": "Python Reinforcement Learning Projects",
+      "price": "63.97"
+    },
+    {
+      "authors": "Nicolai Stanev",
+      "title": "Machine-Learning-Anwendungen in mittelständischen Industrieunternehmen. Einsatzbereiche und Erfolgsfaktoren",
+      "price": "23.23"
+    },
+    {
+      "authors": "Giuseppe Bonaccorso",
+      "title": "Machine Learning Algorithms",
+      "price": "46.77"
+    },
+    {
+      "authors": "Giuseppe Bonaccorso",
+      "title": "Machine Learning Algorithms",
+      "price": "10.71"
+    },
+    {
+      "authors": "Matthew F. Dixon, Igor Halperin, Paul Bilokon",
+      "title": "Machine Learning in Finance",
+      "price": "48.94"
+    },
+    {
+      "authors": "Sebastian Raschka",
+      "title": "Python Machine Learning",
+      "price": "16.26"
+    },
+    {
+      "authors": "Pramod Singh, Avinash Manure",
+      "title": "Learn TensorFlow 2.0",
+      "price": "43.52"
+    },
+    {
+      "authors": "Andreas C. Müller, Sarah Guido",
+      "title": "Introduction to Machine Learning with Python",
+      "price": "87.31"
+    },
+    {
+      "authors": "Management Association, Information Resources",
+      "title": "Machine Learning: Concepts, Methodologies, Tools and Applications",
+      "price": "48.10"
+    },
+    {
+      "authors": "R.S. Michalski, J.G. Carbonell, T.M. Mitchell",
+      "title": "Machine Learning",
+      "price": "12.92"
+    },
+    {
+      "authors": "Phil Kim",
+      "title": "MATLAB Deep Learning",
+      "price": "11.79"
+    },
+    {
+      "authors": "Alexey Grigorev, Rajalingappaa Shanmugamani, Alberto Boschetti, Luca Massaron, Abhishek Thakur",
+      "title": "TensorFlow Deep Learning Projects",
+      "price": "26.98"
+    },
+    {
+      "authors": "Yuxi (Hayden) Liu",
+      "title": "Python Machine Learning By Example",
+      "price": "72.01"
+    },
+    {
+      "authors": "German Creamer, Gary Kazantsev, Tomaso Aste",
+      "title": "Machine Learning and AI in Finance",
+      "price": "15.73"
+    },
+    {
+      "authors": "Dipanjan Sarkar, Raghav Bali, Tushar Sharma",
+      "title": "Practical Machine Learning with Python",
+      "price": "79.50"
+    },
+    {
+      "authors": "Georgios Paliouras, Vangelis Karkaletsis, Constantine D. Spyropoulos",
+      "title": "Machine Learning and Its Applications",
+      "price": "43.25"
+    },
+    {
+      "authors": "Ethem Alpaydin",
+      "title": "Introduction to Machine Learning, fourth edition",
+      "price": "59.49"
+    },
+    {
+      "authors": "Pendyala, Vishnu S.",
+      "title": "Machine Learning for Societal Improvement, Modernization, and Progress",
+      "price": "47.09"
+    },
+    {
+      "authors": "Philipp Grunert",
+      "title": "Machine Learning und Neuronale Netze",
+      "price": "13.32"
+    },
+    {
+      "authors": "Kai Nacke",
+      "title": "D Web Development",
+      "price": "20.20"
+    },
+    {
+      "authors": "Mithun Satheesh, Bruno Joseph D'mello, Jason Krol",
+      "title": "Web Development with MongoDB and NodeJS",
+      "price": "24.63"
+    },
+    {
+      "authors": "Ray Rischpater",
+      "title": "Wireless Web Development",
+      "price": "26.34"
+    },
+    {
+      "authors": "Yakov Fain, Victor Rasputnis, Anatole Tartakovsky, Viktor Gamov",
+      "title": "Enterprise Web Development",
+      "price": "63.83"
+    },
+    {
+      "authors": "Neos Thanh",
+      "title": "Flask Web Development",
+      "price": "22.52"
+    },
+    {
+      "authors": "Luke Welling, Laura Thomson",
+      "title": "PHP and MySQL Web Development",
+      "price": "70.08"
+    },
+    {
+      "authors": "Jeff Forcier, Paul Bissex, Wesley J Chun",
+      "title": "Python Web Development with Django",
+      "price": "79.76"
+    },
+    {
+      "authors": "Ben Shaw, Saurabh Badhwar, Chris Guest, Bharath Chandra K S",
+      "title": "Web Development with Django",
+      "price": "55.32"
+    },
+    {
+      "authors": "G. Avola, Jon Raasch",
+      "title": "Smashing Mobile Web Development",
+      "price": "79.06"
+    },
+    {
+      "authors": "Richard York",
+      "title": "Web Development with jQuery",
+      "price": "54.67"
+    },
+    {
+      "authors": "RJ Raawat",
+      "title": "HTML and CSS: The Modern Web Development",
+      "price": "47.25"
+    },
+    {
+      "authors": "Kevin Marshall, Costas Hadjisotiriou, Rachel Andrew",
+      "title": "ASP.NET Web Development with Macromedia Dreamweaver MX 2004",
+      "price": "38.36"
+    },
+    {
+      "authors": "Jason Krol",
+      "title": "Web Development with MongoDB and Node.js",
+      "price": "45.21"
+    },
+    {
+      "authors": "Rubayeet Islam",
+      "title": "PHP and MongoDB Web Development Beginner¿s Guide",
+      "price": "48.28"
+    },
+    {
+      "authors": "Erwin Ouyang",
+      "title": "Hands-On IoT: Wi-Fi and Embedded Web Development",
+      "price": "10.68"
+    },
+    {
+      "authors": "Duane K. Fields, Mark A. Kolb, Shawn Bayern",
+      "title": "Web Development with JavaServer Pages",
+      "price": "68.69"
+    },
+    {
+      "authors": "Sebastian Grebe",
+      "title": "Full-Stack Web Development with GraphQL and React",
+      "price": "81.13"
+    },
+    {
+      "authors": "Miguel Grinberg",
+      "title": "Flask Web Development",
+      "price": "62.66"
+    },
+    {
+      "authors": "Dmitri Sotnikov",
+      "title": "Web Development with Clojure",
+      "price": "56.95"
+    },
+    {
+      "authors": "Mike Street, Andrea Passaglia, Paul Halliday",
+      "title": "Complete Vue.js 2 Web Development",
+      "price": "78.06"
+    },
+    {
+      "authors": "John Desborough",
+      "title": "Intranet Web Development",
+      "price": "94.73"
+    },
+    {
+      "authors": "Ralf Wirdemann, Thomas Baustert",
+      "title": "Rapid web development mit Ruby on Rails",
+      "price": "51.74"
+    },
+    {
+      "authors": "Christopher Ostrowski, Bradley D. Brown",
+      "title": "Oracle Application Server 10g Web Development",
+      "price": "62.16"
+    },
+    {
+      "authors": "Mark J. Anderson, Patrick J. Whitcomb",
+      "title": "Human Factors and Web Development",
+      "price": "31.83"
+    },
+    {
+      "authors": "Olga Filipova",
+      "title": "Vue.js 2 and Bootstrap 4 Web Development",
+      "price": "53.23"
+    },
+    {
+      "authors": "Diego Jose Argüelles Rojas, Erikson Haziz Murrugarra Sifuentes",
+      "title": "Hands-On Full Stack Web Development with Aurelia",
+      "price": "43.29"
+    },
+    {
+      "authors": "Tim Downey",
+      "title": "Guide to Web Development with Java",
+      "price": "37.43"
+    },
+    {
+      "authors": "Thomas James Green",
+      "title": "Macromedia Director 8 and Lingo",
+      "price": "15.05"
+    },
+    {
+      "authors": "Giulio Zambon, Michael Sekler",
+      "title": "Beginning JSP , JSF and Tomcat Web Development",
+      "price": "95.85"
+    },
+    {
+      "authors": "Karuna Murti",
+      "title": "Rust Web Development with Rocket",
+      "price": "71.60"
+    },
+    {
+      "authors": "Michael Httermann",
+      "title": "DevOps for Developers",
+      "price": "54.23"
+    },
+    {
+      "authors": "David Herron",
+      "title": "Node.js Web Development",
+      "price": "30.02"
+    },
+    {
+      "authors": "Steve Holzner",
+      "title": "Web Development with Tcl/Tk 8.1",
+      "price": "24.98"
+    },
+    {
+      "authors": "Samuel Larsen-Disney",
+      "title": "Elevating React Web Development with Gatsby",
+      "price": "29.71"
+    },
+    {
+      "authors": "William Martiner",
+      "title": "Visual Basic Programmer's Guide to Web Development",
+      "price": "39.16"
+    },
+    {
+      "authors": "Elizabeth Naramore, Jason Gerner, Yann Le Scouarnec, Jeremy Stolz, Michael K. Glass",
+      "title": "Beginning PHP5, Apache, and MySQL Web Development",
+      "price": "70.95"
+    },
+    {
+      "authors": "James Pearce",
+      "title": "Professional Mobile Web Development with WordPress, Joomla! and Drupal",
+      "price": "49.68"
+    },
+    {
+      "authors": "Sean Liao, Mark Punak, Anthony Nemec",
+      "title": "Migrating to Swift from Web Development",
+      "price": "84.79"
+    },
+    {
+      "authors": "Frank Zammetti",
+      "title": "Practical Webix",
+      "price": "13.04"
+    },
+    {
+      "authors": "Christian Heilmann, Mark Norm Norman Francis",
+      "title": "Web Development Solutions",
+      "price": "20.95"
+    }
+  ]
+}
+
+# 发送 POST 请求
+response = requests.post(url, data=json.dumps(books_data), headers=headers)
+
+# 打印响应结果
+print(response.status_code)
+try:
+    print(response.json())
+except json.decoder.JSONDecodeError:
+    print(response.text)
