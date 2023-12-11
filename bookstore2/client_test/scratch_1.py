@@ -11,11 +11,44 @@ api_key = ''
 url = 'https://www.googleapis.com/books/v1/volumes'
 
 # 搜索关键词列表
-search_keywords = ['python programming', 'machine learning', 'web development']
+search_keywords = [
+    'artificial intelligence', 'augmented reality development', 'quantum computing algorithms',
+    'nanorobotics', 'cybersecurity solutions', 'biometric identification', 'IoT applications',
+    'blockchain technology innovations', '5G network advancements', 'advanced robotics research',
+    'autonomous vehicles technology', 'space exploration missions', 'biomedical nanotechnology',
+    'cognitive computing systems', 'synthetic biology applications', 'neuroengineering breakthroughs',
+    'wearable technology trends', 'smart cities infrastructure', 'genomic editing techniques',
+    'quantum sensors development', 'machine learning in finance', 'robotic surgery advancements',
+    'financial planning algorithms', 'green architecture innovations', 'sustainable fashion materials',
+    'cognitive neuroscience studies', 'innovations in indie game development', 'medical anthropology research',
+    'science communication strategies', 'educational technology tools', 'fashion illustration software',
+    'urban exploration technology', 'happiness economics research', 'medieval history digitization',
+    'human-computer interaction advancements', 'comparative religion studies with AI', 'adventure travel tech guides',
+    'ecosystem ecology modeling', 'designer biography documentaries', 'cutting-edge futuristic technology',
+    'innovations in alternative medicine', 'financial markets predictive analytics', 'sports psychology tools',
+    'historical fashion digitization', 'advancements in cognitive psychology research',
+    'ethical considerations in medical research', 'graphic design principles in UX/UI', 'biographical novels in AI era',
+    'ancient myths reinterpretation with technology', 'human geography mapping technologies',
+    'philosophy of science in the digital age', 'virtual reality gaming experiences', 'sustainable living technologies',
+    'neuroethics in AI era', 'alternative education technology tools', 'crime scene investigation tech',
+    'modern dance choreography with technology', 'data visualization tools for insights',
+    'historical romance in virtual reality', 'modern philosophy in the age of AI', 'ethical hacking tools and techniques',
+    'futuristic architecture design software', 'documentary filmmaking with VR', 'programming for kids platforms',
+    'human-animal bond studies with technology', 'entrepreneurial finance in the digital economy',
+    'urban sociology studies with data analytics', 'political satire in the age of social media',
+    'archaeoastronomy with advanced telescopes', 'animal behavior studies with technology',
+    'financial literacy apps and platforms', 'experimental psychology with virtual experiments',
+    'fashion retail with augmented reality', 'quantum computing applications', 'medical mysteries solving with AI',
+    'graphic design history interactive experiences', 'environmental activism leveraging technology',
+    'social entrepreneurship in the digital era', 'ancient art history preservation with technology',
+    'personal branding in the age of social media', 'mindful eating apps and tech innovations',
+    'historical linguistics digitization', 'computer graphics in virtual environments',
+    'biomedical engineering breakthroughs'
+]
 
 # 设置每页返回的图书数量和总共要获取的数据量
-items_per_page = 40
-total_items = 200
+items_per_page = 40  # 每个关键词获取的图书数量
+total_items = 1000  # 总共要获取的图书数量
 
 # 存储结果的列表
 all_books = {'books': []}
@@ -26,7 +59,7 @@ for keyword in search_keywords:
     params = {
         'q': keyword,
         'key': api_key,
-        'startIndex': 0,  # 请根据实际情况调整
+        'startIndex': 0,
         'maxResults': items_per_page
     }
 

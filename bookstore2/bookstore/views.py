@@ -50,9 +50,6 @@ def add_books(request):
                     author_names = book_info.get('authors', '').split(', ')
                     title = book_info.get('title', '')
                     price = float(book_info.get('price', ''))
-
-                    # Validate title and price (unchanged from your original code)
-
                     # Create or get authors
                     authors = [Author.objects.get_or_create(name=author.strip())[0] for author in author_names]
 
